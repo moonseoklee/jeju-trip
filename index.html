@@ -55,49 +55,35 @@
   /* ---------- HERO ---------- */
   .hero {
     position: relative;
-    min-height: 78vh;
+    min-height: 82vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     padding: 0;
     overflow: hidden;
     isolation: isolate;
+    background: #16302f url("title.png") center 22% / cover no-repeat;
   }
+  /* 사진 위 그라데이션 스크림 — 타이틀 글자 가독성 확보 */
   .sky {
-    position: absolute; inset: 0; z-index: -3;
+    position: absolute; inset: 0; z-index: -2;
     background:
       linear-gradient(180deg,
-        #16324a 0%,
-        #2c5763 24%,
-        #5f8a7f 44%,
-        #cf9155 62%,
-        #e0a45a 70%,
-        #0d8b84 70.4%,
-        #0a6f6a 86%,
-        #075853 100%);
+        rgba(14,26,28,.10) 0%,
+        rgba(14,26,28,.04) 34%,
+        rgba(12,44,42,.42) 66%,
+        rgba(8,42,40,.82) 100%);
+  }
+  .sky::after {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(120% 60% at 50% 118%, rgba(12,139,132,.55), rgba(12,139,132,0) 60%);
   }
   @media (prefers-color-scheme: dark) {
-    .sky { filter: saturate(1.05) brightness(.82); }
+    .hero { background-color: #0c1a1a; }
+    .sky { background:
+      linear-gradient(180deg, rgba(8,16,16,.34) 0%, rgba(8,16,16,.2) 34%, rgba(8,26,24,.6) 66%, rgba(6,22,20,.9) 100%); }
   }
-  :root[data-theme="dark"] .sky { filter: saturate(1.05) brightness(.82); }
-  :root[data-theme="light"] .sky { filter: none; }
-  .sun {
-    position: absolute; z-index: -2;
-    left: 50%; bottom: 30%;
-    width: 118px; height: 118px;
-    transform: translate(-50%, 0);
-    border-radius: 50%;
-    background: radial-gradient(circle at 50% 50%, #ffe6b8 0%, #f7c778 40%, #ec9d46 72%, rgba(236,157,70,0) 73%);
-    box-shadow: 0 0 90px 30px rgba(247,199,120,.35);
-    animation: rise 1.6s cubic-bezier(.22,1,.36,1) both;
-  }
-  .sea-glow {
-    position: absolute; z-index: -2;
-    left: 50%; bottom: 0; width: 60px; height: 30%;
-    transform: translateX(-50%);
-    background: linear-gradient(180deg, rgba(255,220,160,.55), rgba(255,220,160,0));
-    filter: blur(6px);
-  }
+  :root[data-theme="dark"] .hero { background-color: #0c1a1a; }
   .grain {
     position: absolute; inset: 0; z-index: -1; pointer-events: none;
     opacity: .5; mix-blend-mode: overlay;
@@ -266,12 +252,73 @@
     nav a small { display: none; }
     nav { gap: 2px; }
   }
+
+  /* ---------- 입장 게이트 (데이트피커) ---------- */
+  body.locked { overflow: hidden; height: 100vh; }
+  #gate {
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    background:
+      radial-gradient(120% 80% at 50% -10%, color-mix(in srgb, var(--ocean) 18%, var(--sand)), var(--sand) 60%);
+  }
+  #gate.open { opacity: 0; visibility: hidden; transition: opacity .6s ease, visibility .6s; }
+  .gate-card {
+    width: 100%; max-width: 380px; text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 34px 26px 28px;
+    box-shadow: var(--shadow);
+  }
+  .gate-card.shake { animation: shake .45s cubic-bezier(.36,.07,.19,.97); }
+  .gate-eyebrow {
+    font-family: var(--font-serif); font-style: italic;
+    color: var(--sunset); font-size: 1rem; letter-spacing: .03em; margin: 0 0 8px;
+  }
+  .gate-card h2 {
+    margin: 0 0 6px; font-size: 1.3rem; font-weight: 800; letter-spacing: -.02em;
+  }
+  .gate-card p.desc { margin: 0 0 20px; color: var(--muted); font-size: .92rem; }
+  .gate-field { display: flex; flex-direction: column; gap: 10px; }
+  #gate-date {
+    font-family: var(--font-sans); font-size: 1.02rem;
+    padding: 13px 14px; border-radius: 12px;
+    border: 1.5px solid var(--line); background: var(--sand); color: var(--ink);
+    text-align: center; font-variant-numeric: tabular-nums;
+    -webkit-appearance: none; appearance: none;
+  }
+  #gate-date:focus-visible { outline: none; border-color: var(--ocean); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ocean) 22%, transparent); }
+  #gate-btn {
+    font-family: var(--font-sans); font-size: 1rem; font-weight: 700;
+    padding: 13px 14px; border: none; border-radius: 12px; cursor: pointer;
+    background: var(--ocean); color: #fff;
+    transition: filter .15s, transform .05s;
+  }
+  #gate-btn:hover { filter: brightness(1.06); }
+  #gate-btn:active { transform: translateY(1px); }
+  #gate-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--ocean) 30%, transparent); }
+  #gate-msg { min-height: 20px; margin: 14px 0 0; font-size: .86rem; color: var(--muted); }
+  #gate-msg.err { color: var(--sunset); font-weight: 600; }
+  @keyframes shake { 10%,90%{transform:translateX(-2px)} 20%,80%{transform:translateX(4px)} 30%,50%,70%{transform:translateX(-7px)} 40%,60%{transform:translateX(7px)} }
+  @media (prefers-reduced-motion: reduce) { .gate-card.shake { animation: none; } #gate.open { transition: none; } }
 </style>
+
+<div id="gate">
+  <div class="gate-card">
+    <p class="gate-eyebrow">Jeju Boarding Pass</p>
+    <h2>여행 시작일을 맞춰주세요</h2>
+    <p class="desc">제주행은 여행 첫날에만 열려요.<br>출발 날짜를 골라 입장하세요.</p>
+    <div class="gate-field">
+      <input type="date" id="gate-date" min="2026-07-01" max="2026-08-31" aria-label="여행 시작일">
+      <button id="gate-btn" type="button">입장하기</button>
+    </div>
+    <p id="gate-msg"></p>
+  </div>
+</div>
 
 <header class="hero">
   <div class="sky"></div>
-  <div class="sun"></div>
-  <div class="sea-glow"></div>
   <div class="grain"></div>
   <div class="hero-inner">
     <p class="eyebrow fade">Jeju Island · East Coast</p>
@@ -280,7 +327,6 @@
       <span>🗓 7.29 화 – 8.1 금</span>
       <span>🌙 3박 4일</span>
       <span>🚗 렌터카 · 동부권 중심</span>
-      <span>📷 인생샷 우선</span>
     </div>
   </div>
 </header>
@@ -501,4 +547,40 @@
       if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
+
+  // ---- 입장 게이트: 여행 시작일(7/29)을 맞춰야 입장 ----
+  (function () {
+    var gate = document.getElementById('gate');
+    var input = document.getElementById('gate-date');
+    var btn = document.getElementById('gate-btn');
+    var msg = document.getElementById('gate-msg');
+    var card = gate.querySelector('.gate-card');
+    document.body.classList.add('locked');
+
+    function shake(text) {
+      msg.textContent = text;
+      msg.classList.add('err');
+      card.classList.remove('shake');
+      void card.offsetWidth;            // reflow → 애니메이션 재시작
+      card.classList.add('shake');
+    }
+    function enter() {
+      var v = input.value;              // yyyy-mm-dd
+      if (!v) { shake('날짜를 먼저 골라주세요.'); return; }
+      var p = v.split('-');
+      var m = parseInt(p[1], 10), d = parseInt(p[2], 10);
+      if (m === 7 && d === 29) {
+        msg.classList.remove('err');
+        msg.textContent = '좋은 여행 되세요 🌊';
+        gate.classList.add('open');
+        document.body.classList.remove('locked');
+        setTimeout(function () { gate.style.display = 'none'; }, 650);
+      } else {
+        shake('아직이에요! 여행 시작일 7월 29일에 맞춰주세요.');
+      }
+    }
+    btn.addEventListener('click', enter);
+    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') enter(); });
+    input.focus();
+  })();
 </script>
