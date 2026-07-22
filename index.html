@@ -229,6 +229,34 @@
   }
   @media (max-width: 420px) { nav a small { display: none; } nav { gap: 2px; } }
 
+  /* ---------- 먹킷리스트 섹션 ---------- */
+  .eat-intro { color: var(--muted); font-size: .92rem; margin: 8px 0 0; }
+  .eat-group { margin-top: 26px; }
+  .eat-group h3 {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 1.05rem; font-weight: 800; letter-spacing: -.01em; margin: 0 0 4px;
+  }
+  .eat-group .rgn { color: var(--muted); font-weight: 600; font-size: .82rem; }
+  .eat-group > p { margin: 0 0 14px; color: var(--muted); font-size: .84rem; }
+  .eat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  @media (max-width: 480px) { .eat-grid { grid-template-columns: 1fr; } }
+  a.eat {
+    display: flex; gap: 11px; align-items: flex-start; text-decoration: none;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 13px 14px; box-shadow: var(--shadow); color: var(--ink);
+    transition: transform .16s, box-shadow .16s, border-color .16s;
+  }
+  a.eat:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(28,38,31,.13); border-color: color-mix(in srgb, var(--ocean) 40%, var(--line)); }
+  a.eat:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--ocean) 30%, transparent); }
+  a.eat .em { flex: none; font-size: 1.5rem; line-height: 1.2; }
+  a.eat .tx { min-width: 0; }
+  a.eat .nm { font-weight: 700; font-size: 1rem; letter-spacing: -.01em; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  a.eat .nm .go { color: var(--ocean); font-size: .8em; opacity: .8; }
+  :root[data-theme="dark"] a.eat .nm .go { color: var(--ocean); }
+  a.eat .de { margin: 2px 0 0; color: var(--muted); font-size: .85rem; line-height: 1.45; }
+  a.eat .tag { display: inline-block; margin-top: 7px; font-size: .72rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; background: color-mix(in srgb, var(--sunset) 15%, transparent); color: color-mix(in srgb, var(--sunset) 80%, var(--ink)); border: 1px solid color-mix(in srgb, var(--sunset) 32%, transparent); }
+  a.eat.stay-c { background: color-mix(in srgb, var(--cedar) 8%, var(--surface)); }
+
   /* ---------- 모바일 데이 페이저 (스와이프) ---------- */
   footer { padding-bottom: 104px; }
   #pager {
@@ -321,6 +349,7 @@
   <a href="#d2"><b>D2</b> 구좌<small> · 수</small></a>
   <a href="#d3"><b>D3</b> 성산<small> · 목</small></a>
   <a href="#d4"><b>D4</b> 굿바이<small> · 금</small></a>
+  <a href="#eat"><b>🍴</b> 맛집<small> · 위시</small></a>
 </nav>
 
 <main>
@@ -515,6 +544,71 @@
     </div>
   </section>
 
+  <!-- 먹킷리스트 -->
+  <section class="day" id="eat">
+    <div class="day-head reveal">
+      <div class="day-num">Eat List <span class="rule"></span> <span class="date">먹킷 &amp; 스테이</span></div>
+      <h2 class="day-title">동부 먹킷리스트 🤤</h2>
+      <p class="eat-intro">카드 누르면 네이버 지도로 바로 이동 🗺️ 그룹은 대략 권역 기준이니까 동선 짤 때 참고용으로 ㄱㄱ. 영업시간·휴무는 가기 전에 지도에서 한 번 더 확인하는 게 국룰!</p>
+    </div>
+
+    <div class="eat-group reveal">
+      <h3>🧡 함덕·조천권 <span class="rgn">— 도착일 & 오가는 길에 픽</span></h3>
+      <div class="eat-grid">
+        <a class="eat" href="https://map.naver.com/p/search/깡촌흑돼지%20함덕본점" target="_blank" rel="noopener"><span class="em">🐷</span><span class="tx"><span class="nm">깡촌흑돼지 함덕본점 <span class="go">↗</span></span><p class="de">흑돼지 근고기 직접 구워줌, 함덕해수욕장 5분. 웨이팅 각오.</p></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/무거버거" target="_blank" rel="noopener"><span class="em">🍔</span><span class="tx"><span class="nm">무거버거 <span class="go">↗</span></span><p class="de">구좌 당근 갈아 만든 수제 번, 바다뷰 야외석. 매일 10~20시.</p></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/상상%20함덕점" target="_blank" rel="noopener"><span class="em">🍶</span><span class="tx"><span class="nm">상상 함덕점 <span class="go">↗</span></span><p class="de">고등어봉초밥 시그니처 이자카야, 도민추천. 존맛 예약.</p><span class="tag">저녁만 17시~ · 연중무휴</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/도톰%20함덕점" target="_blank" rel="noopener"><span class="em">🐟</span><span class="tx"><span class="nm">도톰 함덕점 <span class="go">↗</span></span><p class="de">두툼한 고등어회·방어·딱새우 모듬세트. 회 도톰함 甲.</p><span class="tag">저녁만 16시~</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/함덕골목" target="_blank" rel="noopener"><span class="em">🍲</span><span class="tx"><span class="nm">함덕골목 <span class="go">↗</span></span><p class="de">사골 해장국·내장탕 딱 2메뉴, 현지 해장 맛집.</p><span class="tag">오전만 07~13:30 · 목휴무 · 포장X</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/로미뮤직하우스%20조천" target="_blank" rel="noopener"><span class="em">☕</span><span class="tx"><span class="nm">로미뮤직하우스 <span class="go">↗</span></span><p class="de">제주 최초 ‘1인 LP카페’, 통창 감성 폼 미쳤음. 조천 선교로.</p><span class="tag">예약/웨이팅 확인 (네이버·인스타)</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/나와산%20조천" target="_blank" rel="noopener"><span class="em">☕</span><span class="tx"><span class="nm">나와산 <span class="go">↗</span></span><p class="de">숲속 화이트 감성 카페, ‘산 기름떡’. 조천 미래로.</p><span class="tag">10~18시 · 수휴무</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/각지불" target="_blank" rel="noopener"><span class="em">🍲</span><span class="tx"><span class="nm">각지불 <span class="go">↗</span></span><p class="de">들깨아구탕 대표, 얼큰 해물요리. 조천 교래 방면.</p><span class="tag">화휴무 · 7월말 여름휴가 확인</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/만두상점%20함덕" target="_blank" rel="noopener"><span class="em">🛍️</span><span class="tx"><span class="nm">만두상점 <span class="go">↗</span></span><p class="de">이름은 만두인데 사실 소품·잡화샵임ㅋㅋ 함덕.</p><span class="tag">12~18시 · 소품샵</span></span></a>
+      </div>
+    </div>
+
+    <div class="eat-group reveal">
+      <h3>🌊 구좌·세화·행원·송당권 <span class="rgn">— D2 동선에 딱</span></h3>
+      <div class="eat-grid">
+        <a class="eat" href="https://map.naver.com/p/search/으뜨미%20송당" target="_blank" rel="noopener"><span class="em">🐠</span><span class="tx"><span class="nm">으뜨미 <span class="go">↗</span></span><p class="de">우럭정식·전복해물뚝배기, 우럭튀김이 대표. 송당.</p><span class="tag">오전~점심만 09:30~15시 · 목휴무 · 소진 시 조기마감</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/사사키키%20행원" target="_blank" rel="noopener"><span class="em">🍜</span><span class="tx"><span class="nm">사사키키 코난비치점 <span class="go">↗</span></span><p class="de">신해물라면+고등어김밥, 행원 바다뷰(코난해변). 맛도리.</p><span class="tag">10~19시 · 애견동반</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/청파식당횟집%20세화" target="_blank" rel="noopener"><span class="em">🐟</span><span class="tx"><span class="nm">청파식당횟집 <span class="go">↗</span></span><p class="de">수조 활고등어 즉석 회. 세화.</p><span class="tag">일휴무 · 브레이크 15~17시</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/인손%20세화" target="_blank" rel="noopener"><span class="em">🍶</span><span class="tx"><span class="nm">인손 <span class="go">↗</span></span><p class="de">아담한 참치·해산물 주점, 참치+갯가재회 대표. 세화.</p><span class="tag">예약 확인 (인스타·캐치테이블)</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/큰손상회%20행원" target="_blank" rel="noopener"><span class="em">🛍️</span><span class="tx"><span class="nm">큰손상회 <span class="go">↗</span></span><p class="de">빈티지·키치 소품샵(키티 아이템), 월정리 근처 행원.</p><span class="tag">11~18:30 · 소품샵</span></span></a>
+      </div>
+    </div>
+
+    <div class="eat-group reveal">
+      <h3>🐚 김녕·동복권 <span class="rgn">— D3 물놀이 후 배 채우기</span></h3>
+      <div class="eat-grid">
+        <a class="eat" href="https://map.naver.com/p/search/김녕빗소리" target="_blank" rel="noopener"><span class="em">🍜</span><span class="tx"><span class="nm">김녕빗소리 <span class="go">↗</span></span><p class="de">바삭 튀김+담백 소바, 유부초밥·오이탕탕이 인기(카페 아님!).</p><span class="tag">11:30~17:30 · 화휴무 · 캐치테이블 예약</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/김녕오라이" target="_blank" rel="noopener"><span class="em">🐟</span><span class="tx"><span class="nm">김녕오라이 <span class="go">↗</span></span><p class="de">두툼한 생선회·딱새우회 횟집(성게국수집 아님!).</p><span class="tag">수휴무 · 저녁 16시~</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/넘은봄%20김녕" target="_blank" rel="noopener"><span class="em">🍽️</span><span class="tx"><span class="nm">넘은봄 <span class="go">↗</span></span><p class="de">미쉐린 출신 셰프의 제철·로컬 코스. 김녕. 특별한 날 각.</p><span class="tag">예약 필수 (캐치테이블)</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/동복로57" target="_blank" rel="noopener"><span class="em">🍚</span><span class="tx"><span class="nm">동복로57 <span class="go">↗</span></span><p class="de">간장게장·돔베고기 등 10여 찬 한상 정식. 동복리. 짱좋음.</p><span class="tag">웨이팅앱 · 2·4주 수휴무</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/곰막식당" target="_blank" rel="noopener"><span class="em">🍜</span><span class="tx"><span class="nm">곰막식당 <span class="go">↗</span></span><p class="de">성게국수·회국수·물회 대표, 바다뷰 테라스. 동복.</p><span class="tag">목휴무 · 브레이크 15~16시</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/몽탄%20제주점" target="_blank" rel="noopener"><span class="em">🐷</span><span class="tx"><span class="nm">몽탄 제주점 <span class="go">↗</span></span><p class="de">짚불 우대갈비 시그니처, 웨이팅 핫플. 동복.</p><span class="tag">오픈런/예약 · L.O 20시</span></span></a>
+      </div>
+    </div>
+
+    <div class="eat-group reveal">
+      <h3>🛏️ 하도권 <span class="rgn">— 숙소 후보</span></h3>
+      <div class="eat-grid">
+        <a class="eat stay-c" href="https://map.naver.com/p/search/너와제주" target="_blank" rel="noopener"><span class="em">🛏️</span><span class="tx"><span class="nm">너와제주 <span class="go">↗</span></span><p class="de">하도리 감성 숙소. 세부 시설은 예약 채널에서 확인.</p><span class="tag">예약 전 정보 재확인</span></span></a>
+        <a class="eat stay-c" href="https://map.naver.com/p/search/제주하도%20숙소" target="_blank" rel="noopener"><span class="em">🛏️</span><span class="tx"><span class="nm">제주하도 <span class="go">↗</span></span><p class="de">하도 감성 숙소로 추정. 정확한 상호가 안 잡혀서 확인 필요.</p><span class="tag">⚠️ 상호 재확인 필요</span></span></a>
+      </div>
+    </div>
+
+    <div class="eat-group reveal">
+      <h3>🏙️ 제주시내 <span class="rgn">— 동부는 아니지만 첫날·공항 오갈 때</span></h3>
+      <div class="eat-grid">
+        <a class="eat" href="https://map.naver.com/p/search/앨리스%20시청본점" target="_blank" rel="noopener"><span class="em">🍧</span><span class="tx"><span class="nm">앨리스 시청본점 <span class="go">↗</span></span><p class="de">실타래 빙수, 녹차오름빙수·계절 과일빙수. 빙수 甲. 제주시청.</p><span class="tag">12~22시</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/513텐동" target="_blank" rel="noopener"><span class="em">🍤</span><span class="tx"><span class="nm">513텐동 <span class="go">↗</span></span><p class="de">오픈키친 튀김쇼, 밥·소스 무료 추가. 공항 근처 구남로.</p><span class="tag">토휴무 · 브레이크 15~17시</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/영미식당%20동문시장" target="_blank" rel="noopener"><span class="em">🍲</span><span class="tx"><span class="nm">영미식당 <span class="go">↗</span></span><p class="de">도가니탕·도가니수육 도민 맛집. 동문시장 근처 원도심.</p><span class="tag">09시 오픈 · 동명 식당 많음 주의</span></span></a>
+        <a class="eat" href="https://map.naver.com/p/search/팔복만두%20관덕로" target="_blank" rel="noopener"><span class="em">🥟</span><span class="tx"><span class="nm">팔복만두 <span class="go">↗</span></span><p class="de">제주 재료 만두, 마파만두·한라산 표고찐빵. 관덕정 근처.</p><span class="tag">11~19시</span></span></a>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -560,7 +654,7 @@
 
   // ---- 하단 데이 페이저 + 스와이프로 날짜 넘기기 ----
   var reduceM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var dayLabels = [['D1','원도심'], ['D2','구좌'], ['D3','성산'], ['D4','굿바이']];
+  var dayLabels = [['D1','원도심'], ['D2','구좌'], ['D3','성산'], ['D4','굿바이'], ['🍴','맛집']];
   var dotsWrap = document.getElementById('pgDots');
   var pgPrev = document.getElementById('pgPrev');
   var pgNext = document.getElementById('pgNext');
