@@ -1,10 +1,9 @@
-<title>제주 3박 4일 · 동부 감성 루트</title>
+<title>제주 3박 4일 · 동부 감성 다 털어옴 🌊</title>
 <style>
   :root {
     --sand:      #F4EFE3;
     --surface:   #FBF8F0;
     --ink:       #1C261F;
-    --ink-soft:  #55605456;
     --muted:     #6E766B;
     --line:      #E4DCC9;
     --ocean:     #0C8B84;
@@ -17,16 +16,9 @@
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --sand:    #0F1512;
-      --surface: #161E19;
-      --ink:     #ECE7D9;
-      --muted:   #9AA398;
-      --line:    #283330;
-      --ocean:   #2FBBAC;
-      --ocean-deep:#25988C;
-      --sunset:  #EDA25C;
-      --cedar:   #B7CFB6;
-      --shadow:  0 1px 2px rgba(0,0,0,.3), 0 10px 34px rgba(0,0,0,.35);
+      --sand:#0F1512; --surface:#161E19; --ink:#ECE7D9; --muted:#9AA398;
+      --line:#283330; --ocean:#2FBBAC; --ocean-deep:#25988C; --sunset:#EDA25C; --cedar:#B7CFB6;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px rgba(0,0,0,.35);
     }
   }
   :root[data-theme="light"] {
@@ -42,37 +34,46 @@
 
   * { box-sizing: border-box; }
   body {
-    margin: 0;
-    background: var(--sand);
-    color: var(--ink);
-    font-family: var(--font-sans);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+    margin: 0; background: var(--sand); color: var(--ink);
+    font-family: var(--font-sans); line-height: 1.6;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
     overflow-x: hidden;
+  }
+
+  /* ---------- 스크롤 진행 바 ---------- */
+  #progress {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0;
+    z-index: 40; transform-origin: left;
+    background: linear-gradient(90deg, var(--ocean), var(--sunset));
+    box-shadow: 0 0 12px color-mix(in srgb, var(--ocean) 60%, transparent);
+  }
+
+  /* ---------- 떠다니는 앰비언트 이모지 ---------- */
+  .bubbles { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .bubbles span {
+    position: absolute; bottom: -60px; font-size: 26px; opacity: 0;
+    animation: float linear infinite;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,.08));
+  }
+  @keyframes float {
+    0%   { transform: translateY(0) rotate(0deg) scale(.9); opacity: 0; }
+    10%  { opacity: .5; }
+    90%  { opacity: .5; }
+    100% { transform: translateY(-112vh) rotate(220deg) scale(1.15); opacity: 0; }
   }
 
   /* ---------- HERO ---------- */
   .hero {
-    position: relative;
-    min-height: 82vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0;
-    overflow: hidden;
-    isolation: isolate;
+    position: relative; z-index: 1; min-height: 84vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    overflow: hidden; isolation: isolate;
     background: #16302f url("title.png") center 22% / cover no-repeat;
   }
-  /* 사진 위 그라데이션 스크림 — 타이틀 글자 가독성 확보 */
   .sky {
     position: absolute; inset: 0; z-index: -2;
-    background:
-      linear-gradient(180deg,
-        rgba(14,26,28,.10) 0%,
-        rgba(14,26,28,.04) 34%,
-        rgba(12,44,42,.42) 66%,
-        rgba(8,42,40,.82) 100%);
+    background: linear-gradient(180deg,
+      rgba(14,26,28,.10) 0%, rgba(14,26,28,.04) 34%,
+      rgba(12,44,42,.42) 66%, rgba(8,42,40,.84) 100%);
   }
   .sky::after {
     content: ""; position: absolute; inset: 0;
@@ -80,8 +81,7 @@
   }
   @media (prefers-color-scheme: dark) {
     .hero { background-color: #0c1a1a; }
-    .sky { background:
-      linear-gradient(180deg, rgba(8,16,16,.34) 0%, rgba(8,16,16,.2) 34%, rgba(8,26,24,.6) 66%, rgba(6,22,20,.9) 100%); }
+    .sky { background: linear-gradient(180deg, rgba(8,16,16,.34) 0%, rgba(8,16,16,.2) 34%, rgba(8,26,24,.6) 66%, rgba(6,22,20,.9) 100%); }
   }
   :root[data-theme="dark"] .hero { background-color: #0c1a1a; }
   .grain {
@@ -89,229 +89,158 @@
     opacity: .5; mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
   }
-  .hero-inner {
-    max-width: 720px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 0 22px 44px;
-    color: #fff;
-  }
+  .hero-inner { max-width: 720px; margin: 0 auto; width: 100%; padding: 0 22px 46px; color: #fff; }
   .eyebrow {
-    font-family: var(--font-serif);
-    font-style: italic;
-    letter-spacing: .04em;
-    font-size: 1rem;
-    opacity: .92;
-    margin: 0 0 12px;
-    text-shadow: 0 1px 14px rgba(0,0,0,.4);
+    font-family: var(--font-serif); font-style: italic; letter-spacing: .04em;
+    font-size: 1rem; opacity: .95; margin: 0 0 12px; text-shadow: 0 1px 14px rgba(0,0,0,.4);
   }
   .hero h1 {
-    font-family: var(--font-sans);
-    font-weight: 800;
-    letter-spacing: -.02em;
-    font-size: clamp(2.3rem, 8vw, 3.6rem);
-    line-height: 1.08;
-    margin: 0 0 16px;
-    text-wrap: balance;
-    text-shadow: 0 2px 22px rgba(0,0,0,.35);
+    font-weight: 800; letter-spacing: -.02em;
+    font-size: clamp(2.2rem, 7.6vw, 3.5rem); line-height: 1.1;
+    margin: 0 0 18px; text-wrap: balance; text-shadow: 0 2px 22px rgba(0,0,0,.4);
   }
-  .hero-meta {
-    display: flex; flex-wrap: wrap; gap: 8px 10px;
-    font-size: .9rem;
+  .hero h1 .pop {
+    background: linear-gradient(90deg, #ffe6a8, #7fe7d6, #ffe6a8);
+    background-size: 220% auto; -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; animation: shimmer 5s linear infinite;
   }
+  @keyframes shimmer { to { background-position: 220% center; } }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 9px; font-size: .88rem; }
   .hero-meta span {
-    background: rgba(255,255,255,.16);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border: 1px solid rgba(255,255,255,.28);
-    padding: 5px 12px; border-radius: 999px;
+    background: rgba(255,255,255,.17); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,.3); padding: 5px 12px; border-radius: 999px;
     text-shadow: 0 1px 6px rgba(0,0,0,.25);
   }
+  .hero-meta span.in  { background: rgba(47,187,172,.32); border-color: rgba(127,231,214,.55); }
+  .hero-meta span.out { background: rgba(240,164,92,.32);  border-color: rgba(255,205,150,.55); }
+
   .fade { animation: fadeUp .9s cubic-bezier(.22,1,.36,1) both; }
-  .fade.d1 { animation-delay: .15s; }
-  .fade.d2 { animation-delay: .28s; }
-  .fade.d3 { animation-delay: .4s; }
+  .fade.d1 { animation-delay: .12s; } .fade.d2 { animation-delay: .24s; } .fade.d3 { animation-delay: .36s; }
   @keyframes fadeUp { from { opacity:0; transform: translateY(18px);} to {opacity:1; transform:none;} }
-  @keyframes rise { from { opacity:0; transform: translate(-50%, 40px);} to {opacity:1; transform:translate(-50%,0);} }
 
   /* ---------- NAV ---------- */
   nav {
-    position: sticky; top: 0; z-index: 20;
-    display: flex; justify-content: center; gap: 6px;
-    padding: 10px;
+    position: sticky; top: 0; z-index: 30; display: flex; justify-content: center; gap: 6px; padding: 10px;
     background: color-mix(in srgb, var(--sand) 86%, transparent);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
   }
   nav a {
-    text-decoration: none;
-    color: var(--muted);
-    font-size: .82rem; font-weight: 600;
-    padding: 7px 14px; border-radius: 999px;
-    display: flex; align-items: baseline; gap: 5px;
-    transition: color .2s, background .2s;
+    text-decoration: none; color: var(--muted); font-size: .82rem; font-weight: 600;
+    padding: 7px 14px; border-radius: 999px; display: flex; align-items: baseline; gap: 5px;
+    transition: color .2s, background .2s, transform .12s;
   }
   nav a b { font-family: var(--font-serif); font-style: italic; font-weight: 600; color: var(--ocean); font-size: .95rem; }
-  nav a:hover, nav a:focus-visible { color: var(--ink); background: color-mix(in srgb, var(--ocean) 12%, transparent); outline: none; }
+  nav a:hover, nav a:focus-visible { color: var(--ink); background: color-mix(in srgb, var(--ocean) 12%, transparent); outline: none; transform: translateY(-1px); }
   nav a small { font-size: .7rem; }
 
   /* ---------- LAYOUT ---------- */
-  main { max-width: 720px; margin: 0 auto; padding: 0 22px 80px; }
+  main { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 0 22px 80px; }
+  footer { position: relative; z-index: 1; }
 
   .day { padding-top: 54px; scroll-margin-top: 62px; }
   .day-head { margin-bottom: 26px; }
   .day-num {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--sunset);
-    letter-spacing: .03em;
-    display: flex; align-items: baseline; gap: 10px;
-    margin-bottom: 6px;
+    font-family: var(--font-serif); font-style: italic; font-size: 1.1rem;
+    letter-spacing: .03em; display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px;
+    background: linear-gradient(90deg, var(--sunset), var(--ocean), var(--sunset));
+    background-size: 220% auto; -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; animation: shimmer 6s linear infinite;
   }
-  .day-num .rule { flex: 1; height: 1px; background: var(--line); }
-  .day-num .date { font-family: var(--font-sans); font-style: normal; font-weight: 600; color: var(--muted); font-size: .85rem; font-variant-numeric: tabular-nums; }
-  .day-title {
-    font-size: clamp(1.5rem, 5vw, 1.95rem);
-    font-weight: 800; letter-spacing: -.02em;
-    margin: 0; line-height: 1.2; text-wrap: balance;
+  .day-num .rule { flex: 1; height: 1px; background: var(--line); -webkit-text-fill-color: initial; }
+  .day-num .date {
+    font-family: var(--font-sans); font-style: normal; font-weight: 600; font-size: .85rem;
+    font-variant-numeric: tabular-nums; color: var(--muted); -webkit-text-fill-color: var(--muted);
   }
+  .day-title { font-size: clamp(1.5rem, 5vw, 1.95rem); font-weight: 800; letter-spacing: -.02em; margin: 0; line-height: 1.2; text-wrap: balance; }
   .day-sub { color: var(--muted); font-size: .92rem; margin: 8px 0 0; }
+
+  /* ---------- 스크롤 등장 ---------- */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+  .reveal.in { opacity: 1; transform: none; }
 
   /* ---------- TIMELINE ---------- */
   .stops { position: relative; margin-top: 8px; padding-left: 18px; }
-  .stops::before {
-    content: ""; position: absolute; left: 4px; top: 12px; bottom: 12px;
-    width: 2px; background: linear-gradient(var(--ocean), var(--line));
-  }
+  .stops::before { content: ""; position: absolute; left: 4px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(var(--ocean), var(--line)); }
   .stop { position: relative; padding: 16px 0 16px 20px; }
-  .stop::before {
-    content: ""; position: absolute; left: -18px; top: 22px;
-    width: 11px; height: 11px; border-radius: 50%;
-    background: var(--surface); border: 2.5px solid var(--ocean);
-  }
-  .stop.star::before { border-color: var(--sunset); background: var(--sunset); box-shadow: 0 0 0 4px color-mix(in srgb, var(--sunset) 22%, transparent); }
-  .time {
-    font-family: var(--font-serif);
-    font-variant-numeric: tabular-nums;
-    color: var(--ocean-deep); font-weight: 700;
-    font-size: 1.02rem; letter-spacing: .01em;
-  }
-  :root[data-theme="dark"] .time,
-  .stop .time { color: var(--ocean); }
-  .stop h3 {
-    margin: 3px 0 6px; font-size: 1.12rem; font-weight: 700;
-    letter-spacing: -.01em; line-height: 1.35;
-  }
-  .stop h3 .flag {
-    display: inline-block; margin-left: 6px;
-    font-size: .68rem; font-weight: 800; vertical-align: middle;
-    color: #fff; background: var(--sunset);
-    padding: 2px 7px; border-radius: 6px; letter-spacing: .02em;
-  }
+  .stop::before { content: ""; position: absolute; left: -18px; top: 22px; width: 11px; height: 11px; border-radius: 50%; background: var(--surface); border: 2.5px solid var(--ocean); transition: transform .2s; }
+  .stop:hover::before { transform: scale(1.35); }
+  .stop.star::before { border-color: var(--sunset); background: var(--sunset); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--sunset) 45%, transparent); } 50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--sunset) 0%, transparent); } }
+  .time { font-family: var(--font-serif); font-variant-numeric: tabular-nums; color: var(--ocean-deep); font-weight: 700; font-size: 1.02rem; }
+  :root[data-theme="dark"] .time, .stop .time { color: var(--ocean); }
+  .stop h3 { margin: 3px 0 6px; font-size: 1.12rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.35; }
+  .stop h3 .flag { display: inline-block; margin-left: 6px; font-size: .68rem; font-weight: 800; vertical-align: middle; color: #fff; background: var(--sunset); padding: 2px 7px; border-radius: 6px; letter-spacing: .02em; }
+  .stop h3 .plane { display: inline-block; animation: fly 3.4s ease-in-out infinite; }
+  @keyframes fly { 0%,100% { transform: translate(0,0) rotate(0); } 50% { transform: translate(4px,-4px) rotate(8deg); } }
   .stop p { margin: 0; color: var(--muted); font-size: .96rem; }
   .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-  .chip {
-    font-size: .76rem; font-weight: 600;
-    padding: 3px 9px; border-radius: 7px;
-    background: color-mix(in srgb, var(--ocean) 10%, transparent);
-    color: var(--ocean-deep);
-    border: 1px solid color-mix(in srgb, var(--ocean) 22%, transparent);
-    font-variant-numeric: tabular-nums;
-  }
+  .chip { font-size: .76rem; font-weight: 600; padding: 3px 9px; border-radius: 7px; background: color-mix(in srgb, var(--ocean) 10%, transparent); color: var(--ocean-deep); border: 1px solid color-mix(in srgb, var(--ocean) 22%, transparent); font-variant-numeric: tabular-nums; }
   :root[data-theme="dark"] .chip { color: var(--ocean); }
-  .chip.warn {
-    background: color-mix(in srgb, var(--sunset) 14%, transparent);
-    color: color-mix(in srgb, var(--sunset) 78%, var(--ink));
-    border-color: color-mix(in srgb, var(--sunset) 34%, transparent);
-  }
+  .chip.warn { background: color-mix(in srgb, var(--sunset) 14%, transparent); color: color-mix(in srgb, var(--sunset) 78%, var(--ink)); border-color: color-mix(in srgb, var(--sunset) 34%, transparent); }
+  a.chip { text-decoration: none; display: inline-flex; align-items: center; gap: 4px; transition: transform .12s, background .2s, box-shadow .2s; }
+  a.chip::after { content: "↗"; font-size: .72em; opacity: .7; }
+  a.chip:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--ocean) 20%, transparent); box-shadow: 0 4px 12px color-mix(in srgb, var(--ocean) 22%, transparent); }
+  a.chip:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--ocean) 30%, transparent); }
 
-  .stay {
-    display: flex; gap: 10px; align-items: flex-start;
-    margin-top: 18px; padding: 14px 16px;
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: 12px; box-shadow: var(--shadow);
-    font-size: .9rem;
-  }
+  .stay { display: flex; gap: 10px; align-items: flex-start; margin-top: 18px; padding: 14px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); font-size: .9rem; transition: transform .18s, box-shadow .18s; }
+  .stay:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(28,38,31,.12); }
   .stay .ic { flex: none; color: var(--cedar); font-size: 1.05rem; line-height: 1.4; }
   .stay b { color: var(--ink); font-weight: 700; }
   .stay span { color: var(--muted); }
+  .stay a { color: var(--ocean-deep); font-weight: 700; text-decoration: none; border-bottom: 1.5px solid color-mix(in srgb, var(--ocean) 40%, transparent); }
+  :root[data-theme="dark"] .stay a { color: var(--ocean); }
+  .stay a:hover { border-bottom-color: var(--ocean); }
 
-  footer {
-    max-width: 720px; margin: 0 auto; padding: 30px 22px 60px;
-    border-top: 1px solid var(--line); color: var(--muted);
-    font-size: .82rem; text-align: center;
-  }
+  footer { max-width: 720px; margin: 0 auto; padding: 30px 22px 60px; border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; text-align: center; }
   footer .dot { color: var(--ocean); }
 
-  @media (prefers-reduced-motion: reduce) {
-    .fade, .sun { animation: none; }
-  }
-  @media (max-width: 420px) {
-    nav a small { display: none; }
-    nav { gap: 2px; }
-  }
-
-  /* ---------- 입장 게이트 (데이트피커) ---------- */
+  /* ---------- 입장 게이트 ---------- */
   body.locked { overflow: hidden; height: 100vh; }
-  #gate {
-    position: fixed; inset: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: center;
-    padding: 24px;
-    background:
-      radial-gradient(120% 80% at 50% -10%, color-mix(in srgb, var(--ocean) 18%, var(--sand)), var(--sand) 60%);
-  }
+  #gate { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 24px; overflow: hidden; background: radial-gradient(120% 80% at 50% -10%, color-mix(in srgb, var(--ocean) 20%, var(--sand)), var(--sand) 60%); }
   #gate.open { opacity: 0; visibility: hidden; transition: opacity .6s ease, visibility .6s; }
-  .gate-card {
-    width: 100%; max-width: 380px; text-align: center;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    padding: 34px 26px 28px;
-    box-shadow: var(--shadow);
-  }
+  .gate-card { position: relative; z-index: 2; width: 100%; max-width: 384px; text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 34px 26px 28px; box-shadow: var(--shadow); animation: fadeUp .6s cubic-bezier(.22,1,.36,1) both; }
   .gate-card.shake { animation: shake .45s cubic-bezier(.36,.07,.19,.97); }
-  .gate-eyebrow {
-    font-family: var(--font-serif); font-style: italic;
-    color: var(--sunset); font-size: 1rem; letter-spacing: .03em; margin: 0 0 8px;
-  }
-  .gate-card h2 {
-    margin: 0 0 6px; font-size: 1.3rem; font-weight: 800; letter-spacing: -.02em;
-  }
+  .gate-eyebrow { font-family: var(--font-serif); font-style: italic; color: var(--sunset); font-size: 1rem; letter-spacing: .03em; margin: 0 0 8px; }
+  .gate-card h2 { margin: 0 0 6px; font-size: 1.32rem; font-weight: 800; letter-spacing: -.02em; }
   .gate-card p.desc { margin: 0 0 20px; color: var(--muted); font-size: .92rem; }
   .gate-field { display: flex; flex-direction: column; gap: 10px; }
-  #gate-date {
-    font-family: var(--font-sans); font-size: 1.02rem;
-    padding: 13px 14px; border-radius: 12px;
-    border: 1.5px solid var(--line); background: var(--sand); color: var(--ink);
-    text-align: center; font-variant-numeric: tabular-nums;
-    -webkit-appearance: none; appearance: none;
-  }
+  #gate-date { font-family: var(--font-sans); font-size: 1.02rem; padding: 13px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--sand); color: var(--ink); text-align: center; font-variant-numeric: tabular-nums; -webkit-appearance: none; appearance: none; }
   #gate-date:focus-visible { outline: none; border-color: var(--ocean); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ocean) 22%, transparent); }
-  #gate-btn {
-    font-family: var(--font-sans); font-size: 1rem; font-weight: 700;
-    padding: 13px 14px; border: none; border-radius: 12px; cursor: pointer;
-    background: var(--ocean); color: #fff;
-    transition: filter .15s, transform .05s;
-  }
-  #gate-btn:hover { filter: brightness(1.06); }
+  #gate-btn { font-family: var(--font-sans); font-size: 1rem; font-weight: 700; padding: 13px 14px; border: none; border-radius: 12px; cursor: pointer; background: var(--ocean); color: #fff; transition: filter .15s, transform .05s; }
+  #gate-btn:hover { filter: brightness(1.07); }
   #gate-btn:active { transform: translateY(1px); }
   #gate-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--ocean) 30%, transparent); }
   #gate-msg { min-height: 20px; margin: 14px 0 0; font-size: .86rem; color: var(--muted); }
   #gate-msg.err { color: var(--sunset); font-weight: 600; }
+  #gate-msg.ok  { color: var(--ocean-deep); font-weight: 700; }
+  :root[data-theme="dark"] #gate-msg.ok { color: var(--ocean); }
   @keyframes shake { 10%,90%{transform:translateX(-2px)} 20%,80%{transform:translateX(4px)} 30%,50%,70%{transform:translateX(-7px)} 40%,60%{transform:translateX(7px)} }
-  @media (prefers-reduced-motion: reduce) { .gate-card.shake { animation: none; } #gate.open { transition: none; } }
+
+  /* 컨페티 */
+  .confetti { position: fixed; top: 50%; left: 50%; font-size: 22px; z-index: 200; pointer-events: none; animation: confetti-fly .9s ease-out forwards; }
+  @keyframes confetti-fly { to { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); opacity: 0; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade, .bubbles span, .hero h1 .pop, .day-num, .stop.star::before, .stop h3 .plane, .confetti { animation: none !important; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    #gate.open { transition: none; }
+    .hero h1 .pop { -webkit-text-fill-color: #ffe6a8; }
+  }
+  @media (max-width: 420px) { nav a small { display: none; } nav { gap: 2px; } }
 </style>
+
+<div id="progress"></div>
+<div class="bubbles" aria-hidden="true"></div>
 
 <div id="gate">
   <div class="gate-card">
-    <p class="gate-eyebrow">Jeju Boarding Pass</p>
-    <h2>여행 시작일을 맞춰주세요</h2>
-    <p class="desc">제주행은 여행 첫날에만 열려요.<br>출발 날짜를 골라 입장하세요.</p>
+    <p class="gate-eyebrow">🎫 Jeju Boarding Pass</p>
+    <h2>탑승일 안 맞으면 노입장 ㅋㅋ</h2>
+    <p class="desc">아무나 못 들어옴 ㅅㄱ.<br>여행 첫날 딱 맞춰야 문 열림. 날짜 골라봐 야르~</p>
     <div class="gate-field">
       <input type="date" id="gate-date" min="2026-07-01" max="2026-08-31" aria-label="여행 시작일">
-      <button id="gate-btn" type="button">입장하기</button>
+      <button id="gate-btn" type="button">탑승하기 ✈️</button>
     </div>
     <p id="gate-msg"></p>
   </div>
@@ -321,12 +250,14 @@
   <div class="sky"></div>
   <div class="grain"></div>
   <div class="hero-inner">
-    <p class="eyebrow fade">Jeju Island · East Coast</p>
-    <h1 class="fade d1">삼나무 숲과 에메랄드 바다,<br>제주 동부 감성 루트</h1>
+    <p class="eyebrow fade">Jeju Island · East Coast — 야르, 가보자고 🌴</p>
+    <h1 class="fade d1">삼나무 숲에 에메랄드 바다까지,<br><span class="pop">제주 동부 감성 다 털어옴</span> 🌊</h1>
     <div class="hero-meta fade d2">
-      <span>🗓 7.29 화 – 8.1 금</span>
+      <span>🗓 7.29 화 → 8.1 금</span>
       <span>🌙 3박 4일</span>
-      <span>🚗 렌터카 · 동부권 중심</span>
+      <span>🚗 렌터카 · 동부 올인</span>
+      <span class="in">🛫 IN 제주항공</span>
+      <span class="out">🛬 OUT 티웨이</span>
     </div>
   </div>
 </header>
@@ -335,190 +266,197 @@
   <a href="#d1"><b>D1</b> 원도심<small> · 화</small></a>
   <a href="#d2"><b>D2</b> 구좌<small> · 수</small></a>
   <a href="#d3"><b>D3</b> 성산<small> · 목</small></a>
-  <a href="#d4"><b>D4</b> 마무리<small> · 금</small></a>
+  <a href="#d4"><b>D4</b> 굿바이<small> · 금</small></a>
 </nav>
 
 <main>
 
   <!-- D1 -->
   <section class="day" id="d1">
-    <div class="day-head">
+    <div class="day-head reveal">
       <div class="day-num">Day 01 <span class="rule"></span> <span class="date">7/29 화</span></div>
       <h2 class="day-title">제주시 원도심 & 공항권</h2>
-      <p class="day-sub">도착 오후 — 원도심 도보권으로 이동 거의 없이 노을·야시장까지</p>
+      <p class="day-sub">저녁에 상륙 → 노을이랑 야시장만 딱 조지고 꿀잠. 첫날은 힘 빼기 국룰 😎</p>
     </div>
     <div class="stops">
-      <div class="stop">
-        <div class="time">15:00</div>
-        <h3>공항 도착</h3>
-        <p>렌터카 픽업 후 숙소 체크인.</p>
+      <div class="stop reveal">
+        <div class="time">17:00</div>
+        <h3>제주공항 도착 <span class="plane">✈️</span></h3>
+        <p>제주항공 타고 제주 상륙 완료 야르~ 렌터카 픽업하고 숙소에 짐부터 던지기.</p>
+        <div class="chips"><a class="chip in" href="https://www.jejuair.net" target="_blank" rel="noopener">제주항공 예약</a></div>
       </div>
-      <div class="stop">
-        <div class="time">16:30</div>
-        <h3>아라리오뮤지엄</h3>
-        <p>동문모텔·탑동시네마 붉은 외벽 인증 + 산지천 골목.</p>
+      <div class="stop reveal">
+        <div class="time">17:50</div>
+        <h3>원도심 감성 카페 + 체크인</h3>
+        <p>탑동·삼도동 감성 카페에서 당 충전. 일찍 도착하면 아라리오뮤지엄 붉은 외벽도 슥 찍고 오면 개이득.</p>
       </div>
-      <div class="stop">
-        <div class="time">17:30</div>
-        <h3>원도심 감성 카페</h3>
-        <p>탑동·삼도동권에서 잠시 쉬어가기.</p>
-      </div>
-      <div class="stop">
+      <div class="stop reveal">
         <div class="time">18:40</div>
         <h3>별도봉 ‘애기업은돌’ 산책로</h3>
-        <p>바다 + 노을 능선컷.</p>
+        <p>바다 + 노을 능선컷. 일몰 폼 미쳤음, 여기서 하늘 색 실화냐 소리 나옴.</p>
         <div class="chips"><span class="chip">🌇 일몰 19:35</span></div>
       </div>
-      <div class="stop">
+      <div class="stop reveal">
         <div class="time">20:00</div>
         <h3>동문시장 야시장</h3>
-        <p>네온·딱새우·흑돼지꼬치 야경샷.</p>
+        <p>네온 뿜뿜에 딱새우·흑돼지꼬치 존맛탱. 야경샷 찢고 배 채우면 1일차 끝, 인정?</p>
+        <div class="chips"><a class="chip" href="https://map.naver.com/p/search/제주%20동문시장%20야시장" target="_blank" rel="noopener">야시장 위치</a><a class="chip" href="https://map.naver.com/p/search/제주시%20흑돼지%20맛집" target="_blank" rel="noopener">흑돼지 맛집</a></div>
       </div>
     </div>
-    <div class="stay">
+    <div class="stay reveal">
       <span class="ic">🛏</span>
-      <div><b>숙박 · 제주시 원도심/공항권</b><br><span>원도심 도보권 — 이 날은 이동 거의 없음.</span></div>
+      <div><b>숙박 · 제주시 원도심/공항권</b><br><span>원도심 도보권이라 이 날은 이동 거의 제로. </span><a href="https://map.naver.com/p/search/제주시%20원도심%20호텔" target="_blank" rel="noopener">숙소 보러가기 ↗</a></div>
     </div>
   </section>
 
   <!-- D2 -->
   <section class="day" id="d2">
-    <div class="day-head">
+    <div class="day-head reveal">
       <div class="day-num">Day 02 <span class="rule"></span> <span class="date">7/30 수</span></div>
       <h2 class="day-title">구좌 감성 숲 & 오션뷰</h2>
-      <p class="day-sub">세화·평대 — 스팟 간 5~15분, 총 이동 적음</p>
+      <p class="day-sub">세화·평대 — 스팟 간 5~15분, 이동 거의 없어서 개꿀. 오늘 인생샷 몰빵함 📸</p>
     </div>
     <div class="stops">
-      <div class="stop">
+      <div class="stop reveal">
         <div class="time">09:00</div>
         <h3>출발</h3>
-        <p>제주시 → 송당 약 35분.</p>
+        <p>제주시에서 송당까지 슝 (약 35분). 아침형 인간 발동, 부지런 떨면 사람 없어서 이득.</p>
       </div>
-      <div class="stop star">
+      <div class="stop star reveal">
         <div class="time">09:40</div>
         <h3>안돌오름 비밀의숲 <span class="flag">1순위</span></h3>
-        <p>삼나무 숲 실루엣 — 이번 여행 인생샷. 오전 빛이 최고.</p>
-        <div class="chips"><span class="chip warn">사유지 · 현장 입장료</span><span class="chip">☀️ 오전 빛</span></div>
+        <p>삼나무 숲 실루엣 = 이번 여행 인생샷 몰빵 스팟. 오전 빛 폼 미쳤고 여기 못 찍으면 여행 반쪽임 ㄹㅇ.</p>
+        <div class="chips"><a class="chip" href="https://map.naver.com/p/search/안돌오름%20비밀의숲" target="_blank" rel="noopener">위치</a><span class="chip warn">사유지 · 현장 입장료</span><span class="chip">☀️ 오전 빛 甲</span></div>
       </div>
-      <div class="stop">
+      <div class="stop reveal">
         <div class="time">11:00</div>
         <h3>아부오름</h3>
-        <p>완만한 원형 분화구 능선, 삼나무 원형 뷰.</p>
+        <p>완만한 원형 분화구 능선에 삼나무 원형 뷰. 왕복 30분이라 다리도 안 아픔, 가성비 甲.</p>
         <div class="chips"><span class="chip">🥾 왕복 30분</span></div>
       </div>
-      <div class="stop">
+      <div class="stop reveal">
         <div class="time">12:30</div>
         <h3>점심 · 구좌 로컬</h3>
-        <p>성게국수 / 보말 / 당근요리.</p>
+        <p>성게국수 / 보말 / 당근요리 = 구좌 국룰. 여기 밥 존맛 예약이라 배 비우고 오셈.</p>
+        <div class="chips"><a class="chip" href="https://map.naver.com/p/search/구좌%20성게국수" target="_blank" rel="noopener">성게국수 맛집</a></div>
       </div>
-      <div class="stop">
+      <div class="stop reveal">
         <div class="time">14:00</div>
         <h3>평대·세화 오션뷰 화이트 카페</h3>
-        <p>인피니티 바다 낮컷.</p>
+        <p>인피니티 바다 낮컷. 카페 갬성 만렙, 커피보다 뷰 마시러 가는 곳.</p>
+        <div class="chips"><a class="chip" href="https://map.naver.com/p/search/세화%20오션뷰%20카페" target="_blank" rel="noopener">오션뷰 카페</a></div>
       </div>
-      <div class="stop">
+      <div class="stop reveal">
         <div class="time">15:30</div>
         <h3>하도 해변</h3>
-        <p>에메랄드빛 한적한 해변, 토끼섬 배경.</p>
+        <p>에메랄드 한적함 甲, 토끼섬 배경. 사람 적어서 뷰 독차지, 이게 찐 힐링.</p>
       </div>
-      <div class="stop">
+      <div class="stop reveal">
         <div class="time">17:00</div>
         <h3>종달리 돌담·야자수 골목</h3>
-        <p>골목 산책 + 소심한책방.</p>
-        <div class="chips"><span class="chip warn">휴무 확인</span></div>
+        <p>골목 갬성 + 소심한책방. 휴무 꼭 체크해라, 허탕 치면 킹받음.</p>
+        <div class="chips"><span class="chip warn">휴무 확인 필수</span></div>
       </div>
-      <div class="stop">
+      <div class="stop reveal">
         <div class="time">18:50</div>
         <h3>세화해변 노을</h3>
-        <p>토요일이면 낮에 ‘벨롱장’ 플리마켓도.</p>
+        <p>노을 타임 시작. 토요일 걸리면 낮에 ‘벨롱장’ 플리마켓까지 보너스로 겟.</p>
       </div>
     </div>
-    <div class="stay">
+    <div class="stay reveal">
       <span class="ic">🛏</span>
-      <div><b>숙박 · 세화·평대 오션뷰 독채/펜션</b><br><span>창밖 바다뷰로 골라야 감성 완성.</span></div>
+      <div><b>숙박 · 세화·평대 오션뷰 독채/펜션</b><br><span>창밖 바다뷰 아니면 무효ㅋㅋ 뷰로 골라야 갬성 완성. </span><a href="https://map.naver.com/p/search/세화%20오션뷰%20펜션" target="_blank" rel="noopener">숙소 보러가기 ↗</a></div>
     </div>
   </section>
 
   <!-- D3 -->
   <section class="day" id="d3">
-    <div class="day-head">
+    <div class="day-head reveal">
       <div class="day-num">Day 03 <span class="rule"></span> <span class="date">7/31 목</span></div>
       <h2 class="day-title">물놀이 + 오름 + 성산 외곽</h2>
-      <p class="day-sub">성산·오조리 — 세화·김녕 왕복 살짝 있지만 다 동부권 20분 내</p>
+      <p class="day-sub">성산·오조리 — 세화·김녕 왕복 살짝 있지만 다 동부권 20분 내라 노빡침 🚗</p>
     </div>
     <div class="stops">
-      <div class="stop">
+      <div class="stop reveal">
         <div class="time">08:00</div>
         <h3>월정리 or 행원리 이른 아침</h3>
-        <p>인파 전 바다 인증 — 행원이 더 한적.</p>
+        <p>인파 오기 전에 선빵 날리기. 행원이 더 한적해서 갬성 독차지 가능.</p>
       </div>
-      <div class="stop">
+      <div class="stop reveal">
         <div class="time">09:30</div>
         <h3>김녕 성세기해변</h3>
-        <p>물놀이·스노클링. 금능 대신 동부, 물빛이 예쁨.</p>
+        <p>물놀이·스노클링 타임. 금능 말고 동부로, 물빛 실화냐 소리 나옴. 물멍 갑.</p>
       </div>
-      <div class="stop">
+      <div class="stop reveal">
         <div class="time">12:00</div>
-        <h3>점심</h3>
-        <p>김녕 / 구좌권.</p>
+        <h3>점심 · 김녕/구좌</h3>
+        <p>물놀이로 방전됐으면 밥으로 풀충전. 근처 맛집 아무거나 걸려도 성공각.</p>
+        <div class="chips"><a class="chip" href="https://map.naver.com/p/search/김녕%20맛집" target="_blank" rel="noopener">김녕 맛집</a></div>
       </div>
-      <div class="stop star">
+      <div class="stop star reveal">
         <div class="time">14:00</div>
-        <h3>용눈이오름</h3>
-        <p>부드러운 곡선 능선 — 감성 인생샷.</p>
+        <h3>용눈이오름 <span class="flag">감성甲</span></h3>
+        <p>부드러운 곡선 능선 = 감성 인생샷 확정. 오름계 아이돌이라 개방시간만 체크하고 ㄱㄱ.</p>
         <div class="chips"><span class="chip warn">개방·탐방시간 확인</span></div>
       </div>
-      <div class="stop">
+      <div class="stop reveal">
         <div class="time">16:00</div>
         <h3>오조리 마을·식산봉·내수면</h3>
-        <p>관광객 적은 진짜 로컬 감성 산책.</p>
+        <p>관광객 1도 없는 찐 로컬 갬성 산책. 조용하고 예뻐서 힐링 만렙, 여기 아는 사람만 앎.</p>
       </div>
-      <div class="stop">
+      <div class="stop reveal">
         <div class="time">18:50</div>
         <h3>광치기해변</h3>
-        <p>성산일출봉 배경 노을 (성수기 입장 대신 배경으로만).</p>
+        <p>성산일출봉 배경으로 노을 조지기. 성수기 입장 대신 배경으로만 슥 = 가성비 甲.</p>
       </div>
     </div>
-    <div class="stay">
+    <div class="stay reveal">
       <span class="ic">🛏</span>
-      <div><b>숙박 · 성산 오조리 감성 숙박</b><br><span>다음 날 아침 산책까지 이어지는 동선.</span></div>
+      <div><b>숙박 · 성산 오조리 감성 숙박</b><br><span>담날 아침 산책까지 자연스럽게 이어지는 동선. </span><a href="https://map.naver.com/p/search/성산%20오조리%20펜션" target="_blank" rel="noopener">숙소 보러가기 ↗</a></div>
     </div>
   </section>
 
   <!-- D4 -->
   <section class="day" id="d4">
-    <div class="day-head">
+    <div class="day-head reveal">
       <div class="day-num">Day 04 <span class="rule"></span> <span class="date">8/1 금</span></div>
-      <h2 class="day-title">오전 알차게, 그리고 공항</h2>
-      <p class="day-sub">아침컷 → 브런치 → 드라이브 → 공항</p>
+      <h2 class="day-title">오전 알차게 털고 → 서울행</h2>
+      <p class="day-sub">아침컷 → 브런치 → 드라이브 → 티웨이 타고 굿바이 제주 👋 오후 4시 비행기라 여유 만렙</p>
     </div>
     <div class="stops">
-      <div class="stop star">
+      <div class="stop star reveal">
         <div class="time">07:30</div>
-        <h3>광치기/오조리 아침 산책</h3>
-        <p>썰물이면 이끼밭 반영샷 — 동부 최고의 아침컷.</p>
+        <h3>광치기/오조리 아침 산책 <span class="flag">아침甲</span></h3>
+        <p>썰물이면 이끼밭 반영샷 = 동부 최고 아침컷. 부지런 떤 자만 얻는 갬성, 인정?</p>
       </div>
-      <div class="stop">
+      <div class="stop reveal">
         <div class="time">09:00</div>
         <h3>성산 감성 브런치 카페</h3>
-        <p>여유로운 아침 마무리.</p>
+        <p>여유롭게 브런치 조지기. 마지막 날인데 이 정도 사치는 국룰.</p>
+        <div class="chips"><a class="chip" href="https://map.naver.com/p/search/성산%20브런치%20카페" target="_blank" rel="noopener">브런치 카페</a></div>
       </div>
-      <div class="stop">
-        <div class="time">10:00</div>
+      <div class="stop reveal">
+        <div class="time">10:30</div>
         <h3>가시리 녹산로 드라이브</h3>
-        <p>야자수 + 풍력발전기 배경.</p>
+        <p>야자수 + 풍력발전기 배경으로 드라이브 갬성 폭발. 창문 내리고 노래 틀면 완성.</p>
         <div class="chips"><span class="chip">🚗 성산→가시리 25분</span></div>
       </div>
-      <div class="stop">
-        <div class="time">11:00</div>
-        <h3>공항 이동</h3>
-        <p>가시리/성산 → 공항.</p>
+      <div class="stop reveal">
+        <div class="time">12:00</div>
+        <h3>점심 · 공항 방향</h3>
+        <p>마지막 제주 밥이니까 아쉬운 만큼 존맛으로다가. 짐 싸기 전에 든든하게.</p>
+      </div>
+      <div class="stop reveal">
+        <div class="time">13:30</div>
+        <h3>공항 이동 & 렌터카 반납</h3>
+        <p>가시리/성산 → 공항 약 55~65분. 슬슬 이별각... 반납 늦으면 대참사니까 여유 두기.</p>
         <div class="chips"><span class="chip">🚗 약 55~65분</span></div>
       </div>
-      <div class="stop">
-        <div class="time">12:00–12:30</div>
-        <h3>공항 도착</h3>
-        <p>점심 전후로 여유롭게 마무리.</p>
+      <div class="stop reveal">
+        <div class="time">16:00</div>
+        <h3>티웨이항공 서울행 출발 <span class="plane">✈️</span></h3>
+        <p>제주 감성 풀충전 완료. 다음에 또 오자 제주야, 굿바이 야르~ 👋</p>
+        <div class="chips"><a class="chip out" href="https://www.twayair.com" target="_blank" rel="noopener">티웨이항공</a></div>
       </div>
     </div>
   </section>
@@ -526,27 +464,65 @@
 </main>
 
 <footer>
-  제주 동부 감성 루트 <span class="dot">·</span> 3박 4일 <span class="dot">·</span> 좋은 여행 되세요 🌊
+  제주 동부 감성 루트 <span class="dot">·</span> 3박 4일 <span class="dot">·</span> 다들 인생샷 건지고 오셈 🌊✌️
 </footer>
 
 <script>
-  // 현재 보이는 섹션을 nav에서 강조
+  // 스크롤 진행 바
+  var bar = document.getElementById('progress');
+  function progress() {
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  }
+
+  // nav 현재 섹션 강조
   var links = Array.prototype.slice.call(document.querySelectorAll('nav a'));
   var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
   function sync() {
-    var y = window.scrollY + 120;
-    var idx = 0;
+    var y = window.scrollY + 120, idx = 0;
     sections.forEach(function (s, i) { if (s && s.offsetTop <= y) idx = i; });
-    links.forEach(function (a, i) { a.style.background = i === idx ? 'color-mix(in srgb, var(--ocean) 15%, transparent)' : ''; a.style.color = i === idx ? 'var(--ink)' : ''; });
+    links.forEach(function (a, i) {
+      a.style.background = i === idx ? 'color-mix(in srgb, var(--ocean) 15%, transparent)' : '';
+      a.style.color = i === idx ? 'var(--ink)' : '';
+    });
   }
-  window.addEventListener('scroll', sync, { passive: true });
-  sync();
+  window.addEventListener('scroll', function () { sync(); progress(); }, { passive: true });
+  sync(); progress();
   links.forEach(function (a) {
     a.addEventListener('click', function (e) {
       var t = document.querySelector(a.getAttribute('href'));
       if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
+
+  // 스크롤 등장 애니메이션
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if (reduce || !('IntersectionObserver' in window)) {
+    reveals.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    reveals.forEach(function (el) { io.observe(el); });
+  }
+
+  // 떠다니는 앰비언트 이모지
+  (function () {
+    if (reduce) return;
+    var layer = document.querySelector('.bubbles');
+    var emojis = ['🌊','🌴','☀️','🐚','⛱️','🍊','✈️','🌅'];
+    for (var i = 0; i < 14; i++) {
+      var s = document.createElement('span');
+      s.textContent = emojis[i % emojis.length];
+      s.style.left = (Math.random() * 100) + 'vw';
+      s.style.fontSize = (18 + Math.random() * 20) + 'px';
+      s.style.animationDuration = (16 + Math.random() * 14) + 's';
+      s.style.animationDelay = (-Math.random() * 20) + 's';
+      layer.appendChild(s);
+    }
+  })();
 
   // ---- 입장 게이트: 여행 시작일(7/29)을 맞춰야 입장 ----
   (function () {
@@ -558,25 +534,35 @@
     document.body.classList.add('locked');
 
     function shake(text) {
-      msg.textContent = text;
-      msg.classList.add('err');
-      card.classList.remove('shake');
-      void card.offsetWidth;            // reflow → 애니메이션 재시작
-      card.classList.add('shake');
+      msg.textContent = text; msg.className = 'err';
+      card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
+    }
+    function party() {
+      if (reduce) return;
+      var e = ['🎉','🌊','🌴','✈️','🍊','☀️','🐚','✌️'];
+      for (var i = 0; i < 26; i++) {
+        var c = document.createElement('div');
+        c.className = 'confetti'; c.textContent = e[i % e.length];
+        var ang = Math.random() * Math.PI * 2, dist = 120 + Math.random() * 240;
+        c.style.setProperty('--dx', Math.cos(ang) * dist + 'px');
+        c.style.setProperty('--dy', (Math.sin(ang) * dist - 120) + 'px');
+        c.style.setProperty('--rot', (Math.random() * 720 - 360) + 'deg');
+        document.body.appendChild(c);
+        setTimeout(function (el) { return function () { el.remove(); }; }(c), 1000);
+      }
     }
     function enter() {
-      var v = input.value;              // yyyy-mm-dd
-      if (!v) { shake('날짜를 먼저 골라주세요.'); return; }
-      var p = v.split('-');
-      var m = parseInt(p[1], 10), d = parseInt(p[2], 10);
+      var v = input.value;
+      if (!v) { shake('날짜부터 골라야지 야르~'); return; }
+      var p = v.split('-'), m = parseInt(p[1], 10), d = parseInt(p[2], 10);
       if (m === 7 && d === 29) {
-        msg.classList.remove('err');
-        msg.textContent = '좋은 여행 되세요 🌊';
+        msg.className = 'ok'; msg.textContent = '탑승 완료! 좋은 여행 되셈 🌊';
+        party();
         gate.classList.add('open');
         document.body.classList.remove('locked');
         setTimeout(function () { gate.style.display = 'none'; }, 650);
       } else {
-        shake('아직이에요! 여행 시작일 7월 29일에 맞춰주세요.');
+        shake('삐— 그날 아님 ㅋㅋ 여행 첫날 7월 29일로 맞춰봐!');
       }
     }
     btn.addEventListener('click', enter);
