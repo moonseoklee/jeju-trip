@@ -195,36 +195,9 @@
   footer { max-width: 720px; margin: 0 auto; padding: 30px 22px 60px; border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; text-align: center; }
   footer .dot { color: var(--ocean); }
 
-  /* ---------- 입장 게이트 ---------- */
-  body.locked { overflow: hidden; height: 100vh; }
-  #gate { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 24px; overflow: hidden; background: radial-gradient(120% 80% at 50% -10%, color-mix(in srgb, var(--ocean) 20%, var(--sand)), var(--sand) 60%); }
-  #gate.open { opacity: 0; visibility: hidden; transition: opacity .6s ease, visibility .6s; }
-  .gate-card { position: relative; z-index: 2; width: 100%; max-width: 384px; text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 34px 26px 28px; box-shadow: var(--shadow); animation: fadeUp .6s cubic-bezier(.22,1,.36,1) both; }
-  .gate-card.shake { animation: shake .45s cubic-bezier(.36,.07,.19,.97); }
-  .gate-eyebrow { font-family: var(--font-serif); font-style: italic; color: var(--sunset); font-size: 1rem; letter-spacing: .03em; margin: 0 0 8px; }
-  .gate-card h2 { margin: 0 0 6px; font-size: 1.32rem; font-weight: 800; letter-spacing: -.02em; }
-  .gate-card p.desc { margin: 0 0 20px; color: var(--muted); font-size: .92rem; }
-  .gate-field { display: flex; flex-direction: column; gap: 10px; }
-  #gate-date { font-family: var(--font-sans); font-size: 1.02rem; padding: 13px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--sand); color: var(--ink); text-align: center; font-variant-numeric: tabular-nums; -webkit-appearance: none; appearance: none; }
-  #gate-date:focus-visible { outline: none; border-color: var(--ocean); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ocean) 22%, transparent); }
-  #gate-btn { font-family: var(--font-sans); font-size: 1rem; font-weight: 700; padding: 13px 14px; border: none; border-radius: 12px; cursor: pointer; background: var(--ocean); color: #fff; transition: filter .15s, transform .05s; }
-  #gate-btn:hover { filter: brightness(1.07); }
-  #gate-btn:active { transform: translateY(1px); }
-  #gate-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--ocean) 30%, transparent); }
-  #gate-msg { min-height: 20px; margin: 14px 0 0; font-size: .86rem; color: var(--muted); }
-  #gate-msg.err { color: var(--sunset); font-weight: 600; }
-  #gate-msg.ok  { color: var(--ocean-deep); font-weight: 700; }
-  :root[data-theme="dark"] #gate-msg.ok { color: var(--ocean); }
-  @keyframes shake { 10%,90%{transform:translateX(-2px)} 20%,80%{transform:translateX(4px)} 30%,50%,70%{transform:translateX(-7px)} 40%,60%{transform:translateX(7px)} }
-
-  /* 컨페티 */
-  .confetti { position: fixed; top: 50%; left: 50%; font-size: 22px; z-index: 200; pointer-events: none; animation: confetti-fly .9s ease-out forwards; }
-  @keyframes confetti-fly { to { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); opacity: 0; } }
-
   @media (prefers-reduced-motion: reduce) {
-    .fade, .bubbles span, .hero h1 .pop, .day-num, .stop.star::before, .stop h3 .plane, .confetti { animation: none !important; }
+    .fade, .bubbles span, .hero h1 .pop, .day-num, .stop.star::before, .stop h3 .plane { animation: none !important; }
     .reveal { opacity: 1 !important; transform: none !important; }
-    #gate.open { transition: none; }
     .hero h1 .pop { -webkit-text-fill-color: #ffe6a8; }
   }
   @media (max-width: 420px) { nav a small { display: none; } nav { gap: 2px; } }
@@ -314,19 +287,6 @@
 
 <div id="progress"></div>
 <div class="bubbles" aria-hidden="true"></div>
-
-<div id="gate">
-  <div class="gate-card">
-    <p class="gate-eyebrow">🎫 Jeju Boarding Pass</p>
-    <h2>탑승일 안 맞으면 노입장 ㅋㅋ</h2>
-    <p class="desc">아무나 못 들어옴 ㅅㄱ.<br>여행 첫날 딱 맞춰야 문 열림. 날짜 골라봐 야르~</p>
-    <div class="gate-field">
-      <input type="date" id="gate-date" min="2026-07-01" max="2026-08-31" aria-label="여행 시작일">
-      <button id="gate-btn" type="button">탑승하기 ✈️</button>
-    </div>
-    <p id="gate-msg"></p>
-  </div>
-</div>
 
 <header class="hero">
   <div class="sky"></div>
@@ -712,11 +672,10 @@
   // 양옆 스와이프 → 날짜 이동
   var tsX = 0, tsY = 0, swiping = false;
   window.addEventListener('touchstart', function (e) {
-    if (document.body.classList.contains('locked')) return;
     var t = e.changedTouches[0]; tsX = t.clientX; tsY = t.clientY; swiping = true;
   }, { passive: true });
   window.addEventListener('touchend', function (e) {
-    if (!swiping || document.body.classList.contains('locked')) return;
+    if (!swiping) return;
     swiping = false;
     var t = e.changedTouches[0], dx = t.clientX - tsX, dy = t.clientY - tsY;
     if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.6) {
@@ -727,7 +686,6 @@
 
   // 데스크톱: 좌우 방향키로도 이동
   window.addEventListener('keydown', function (e) {
-    if (document.body.classList.contains('locked')) return;
     if (e.key === 'ArrowRight') goToDay(activeIdx() + 1, 1);
     else if (e.key === 'ArrowLeft') goToDay(activeIdx() - 1, -1);
   });
@@ -760,50 +718,6 @@
     }
   })();
 
-  // ---- 입장 게이트: 여행 시작일(7/29)을 맞춰야 입장 ----
-  (function () {
-    var gate = document.getElementById('gate');
-    var input = document.getElementById('gate-date');
-    var btn = document.getElementById('gate-btn');
-    var msg = document.getElementById('gate-msg');
-    var card = gate.querySelector('.gate-card');
-    document.body.classList.add('locked');
-
-    function shake(text) {
-      msg.textContent = text; msg.className = 'err';
-      card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
-    }
-    function party() {
-      if (reduce) return;
-      var e = ['🎉','🌊','🌴','✈️','🍊','☀️','🐚','✌️'];
-      for (var i = 0; i < 26; i++) {
-        var c = document.createElement('div');
-        c.className = 'confetti'; c.textContent = e[i % e.length];
-        var ang = Math.random() * Math.PI * 2, dist = 120 + Math.random() * 240;
-        c.style.setProperty('--dx', Math.cos(ang) * dist + 'px');
-        c.style.setProperty('--dy', (Math.sin(ang) * dist - 120) + 'px');
-        c.style.setProperty('--rot', (Math.random() * 720 - 360) + 'deg');
-        document.body.appendChild(c);
-        setTimeout(function (el) { return function () { el.remove(); }; }(c), 1000);
-      }
-    }
-    function enter() {
-      var v = input.value;
-      if (!v) { shake('날짜부터 골라야지 야르~'); return; }
-      var p = v.split('-'), m = parseInt(p[1], 10), d = parseInt(p[2], 10);
-      if (m === 7 && d === 29) {
-        msg.className = 'ok'; msg.textContent = '탑승 완료! 좋은 여행 되셈 🌊';
-        party();
-        gate.classList.add('open');
-        document.body.classList.remove('locked');
-        setTimeout(function () { gate.style.display = 'none'; }, 650);
-        setTimeout(function () { if (window.showSwipeHint) window.showSwipeHint(); }, 900);
-      } else {
-        shake('삐— 그날 아님 ㅋㅋ 여행 첫날 7월 29일로 맞춰봐!');
-      }
-    }
-    btn.addEventListener('click', enter);
-    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') enter(); });
-    input.focus();
-  })();
+  // 진입하면 (모바일) 스와이프 힌트 살짝 띄우기
+  setTimeout(function () { if (window.showSwipeHint) window.showSwipeHint(); }, 1200);
 </script>
